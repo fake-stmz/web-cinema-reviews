@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ movie.title }} - Информация</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.23.12/dist/css/uikit.min.css" />
+</head>
+<body>
+    <header>
+        <nav class="uk-navbar-container" uk-navbar>
+            <div class="uk-navbar-left uk-margin-left">
+                <a class="uk-navbar-item uk-logo" href="/">Кинотзыв.ру</a>
+            </div>
+        </nav>
+    </header>
+    <main class="uk-margin-top">
+        <div class="uk-container">
+            <h2 class="uk-text-center">Информация о фильме</h2>
+            <div class="uk-card uk-card-default uk-margin-top">
+                <div class="uk-card-body">
+                    <h3 class="uk-card-title">{{ movie.title }}</h3>
+                    <p>Год выпуска: {{ movie.year }}</p>
+                    <p>Жанры: {% for genre in movie.genres.all %}
+                        {% if genre.name != movie.genres.last.name %}{{ genre.name }},
+                        {% else %}{{ genre.name }}{% endif %}
+                        {% endfor %}</p>
+                    <p>Средняя оценка: <span class="uk-badge">{{ avg_rating }}</span></p>
+                    <p>Количество отзывов: {{ movie.reviews.count }}</p>
+                    <h4>Отзывы:</h4>
+                    <div class="uk-container">
+                        {% for review in reviews %}
+                        <div class="uk-card uk-card-secondary uk-card-small uk-margin">
+                            <div class="uk-card-body">
+                                <div class="uk-grid uk-child-width-1-2" uk-grid>
+                                    <h4><a href="/reviewer/{{ review.reviewer.id }}/">{{ review.reviewer.name }}</a></h4>
+                                    <p class="uk-text-right uk-text-middle">Оценка: <span class="uk-badge">{{ review.rating }}</span></p>
+                                </div>
+                                <p>{{ review.text }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

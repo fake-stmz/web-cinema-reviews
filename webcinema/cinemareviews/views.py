@@ -7,12 +7,7 @@ def index(request):
 
     avg_ratings = dict()
     for movie in movies:
-        review_count = 0
-        avg_ratings[movie.id] = 0
-        for review in movie.reviews.all():
-            avg_ratings[movie.id] += review.rating
-            review_count += 1
-        avg_ratings[movie.id] = round(avg_ratings[movie.id] / review_count, 2) if review_count != 0 else 0
+        avg_ratings[movie.id] = calculate_rating(movie)
 
     context = {
         'movies': movies,
@@ -20,3 +15,25 @@ def index(request):
     }
 
     return render(request, 'index.html', context)
+
+def movie_info(request, movie_id):
+    movie = Movie.objects.all().prefetch_related('genres').prefetch_related('reviews').get(id=movie_id)
+    reviews = movie.reviews.all().select_related('reviewer')
+    avg_rating = calculate_rating(movie)
+
+    context = {
+        'movie': movie,
+        'reviews': reviews,
+        'avg_rating': avg_rating
+    }
+
+    return render(request, 'movie.html', context)
+
+def calculate_rating(movie):
+    review_count = 0
+    result = 0
+    for review in movie.reviews.all():
+        result += review.rating
+        review_count += 1
+    result = round(result / review_count, 2) if review_count != 0 else 0
+    return result
