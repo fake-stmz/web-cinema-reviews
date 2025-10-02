@@ -36,6 +36,7 @@
                                     <p class="uk-text-right uk-text-middle">Оценка: <span class="uk-badge">{{ review.rating }}</span></p>
                                 </div>
                                 <p>{{ review.text }}</p>
+                                <p>Дата публикации: {{ review.published_at|date:"d-m-Y H:i:s" }}</p>
                             </div>
                         </div>
                         {% endfor %}

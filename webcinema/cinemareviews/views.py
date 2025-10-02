@@ -17,8 +17,8 @@ def index(request):
     return render(request, 'index.html', context)
 
 def movie_info(request, movie_id):
-    movie = Movie.objects.all().prefetch_related('genres').prefetch_related('reviews').get(id=movie_id)
-    reviews = movie.reviews.all().select_related('reviewer')
+    movie = Movie.objects.prefetch_related('genres').prefetch_related('reviews').get(id=movie_id)
+    reviews = movie.reviews.select_related('reviewer')
     avg_rating = calculate_rating(movie)
 
     context = {
@@ -28,6 +28,17 @@ def movie_info(request, movie_id):
     }
 
     return render(request, 'movie.html', context)
+
+def reviewer_info(request, reviewer_id):
+    reviewer = Reviewer.objects.prefetch_related('reviews').get(id=reviewer_id)
+    reviews = reviewer.reviews.select_related('movie')
+
+    context = {
+        'reviewer': reviewer,
+        'reviews': reviews
+    }
+
+    return render(request, 'reviewer.html', context)
 
 def calculate_rating(movie):
     review_count = 0

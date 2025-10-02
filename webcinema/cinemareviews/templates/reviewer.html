@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ reviewer.name }} - Информация</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.23.12/dist/css/uikit.min.css" />
+</head>
+<body>
+    <header>
+        <nav class="uk-navbar-container" uk-navbar>
+            <div class="uk-navbar-left uk-margin-left">
+                <a class="uk-navbar-item uk-logo" href="/">Кинотзыв.ру</a>
+            </div>
+        </nav>
+    </header>
+    <main class="uk-margin-top">
+        <div class="uk-container">
+            <h2 class="uk-text-center">Информация о пользователе</h2>
+            <div class="uk-card uk-card-default uk-margin-top">
+                <div class="uk-card-body">
+                    <h3 class="uk-card-title">{{ reviewer.name }}</h3>
+                    <p>Возраст: {{ reviewer.age }} лет</p>
+                    <p>Город: {{ reviewer.city }}</p>
+                    <h4>Отзывы:</h4>
+                    <table class="uk-table uk-table-striped">
+                        <thead>
+                            <tr>
+                                <th>Фильм</th>
+                                <th>Оценка</th>
+                                <th>Дата публикации</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for review in reviews %}
+                            <tr>
+                                <td><a class="uk-link-text" href="/movie/{{ review.movie.id }}/">{{ review.movie.title }}</a></td>
+                                <td>{{ review.rating }}</td>
+                                <td>{{ review.published_at|date:"d-m-Y H:i:s" }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
