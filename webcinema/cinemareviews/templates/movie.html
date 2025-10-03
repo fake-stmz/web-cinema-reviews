@@ -15,8 +15,8 @@
     </header>
     <main class="uk-margin-top">
         <div class="uk-container">
-            <h2 class="uk-text-center">Информация о фильме</h2>
-            <div class="uk-card uk-card-default uk-margin-top">
+            <h2 class="uk-text-center uk-animation-scale-down">Информация о фильме</h2>
+            <div class="uk-card uk-card-default uk-margin-top uk-animation-slide-left-medium">
                 <div class="uk-card-body">
                     <h3 class="uk-card-title">{{ movie.title }}</h3>
                     <p>Год выпуска: {{ movie.year }}</p>
@@ -24,12 +24,12 @@
                         {% if genre.name != movie.genres.last.name %}{{ genre.name }},
                         {% else %}{{ genre.name }}{% endif %}
                         {% endfor %}</p>
-                    <p>Средняя оценка: <span class="uk-badge">{{ avg_rating }}</span></p>
+                    <p>Средняя оценка: <span class="uk-badge uk-animation-slide-top-small" style="animation-delay: 0.3s;">{{ avg_rating }}</span></p>
                     <p>Количество отзывов: {{ movie.reviews.count }}</p>
                     <h4>Отзывы:</h4>
                     <div class="uk-container">
                         {% for review in reviews %}
-                        <div class="uk-card uk-card-secondary uk-card-small uk-margin">
+                        <div class="uk-card uk-card-secondary uk-card-small uk-margin uk-animation-slide-bottom-medium" style="animation-delay: 0.3s;" id="rev-{{ review.id }}">
                             <div class="uk-card-body">
                                 <div class="uk-grid uk-child-width-1-2" uk-grid>
                                     <h4><a href="/reviewer/{{ review.reviewer.id }}/">{{ review.reviewer.name }}</a></h4>

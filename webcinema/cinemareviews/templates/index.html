@@ -17,10 +17,10 @@
     </header>
     <main class="uk-margin-top">
         <div class="uk-container">
-            <h2 class="uk-text-center">Список фильмов</h2>
+            <h2 class="uk-text-center uk-animation-scale-down">Список фильмов</h2>
             <div class="uk-container uk-margin-top">
                 {% for movie in movies %}
-                <div class="uk-card uk-card-default uk-margin">
+                <div class="uk-card uk-card-default uk-margin uk-animation-slide-left-medium">
                     <div class="uk-card-body">
                         <h3 class="uk-card-title">{{ movie.title }}</h3>
                         <p>Год выпуска: {{ movie.year }}</p>
@@ -28,7 +28,7 @@
                             {% if genre.name != movie.genres.last.name %}{{ genre.name }},
                             {% else %}{{ genre.name }}{% endif %}
                             {% endfor %}</p>
-                        <p>Средняя оценка: <span class="uk-badge">{{ avg_ratings|keyvalue:movie.id }}</span></p>
+                        <p>Средняя оценка: <span class="uk-badge uk-animation-slide-top-small" style="animation-delay: 0.3s;">{{ avg_ratings|keyvalue:movie.id }}</span></p>
                         <p>Количество отзывов: {{ movie.reviews.count }}</p>
                         <a href="/movie/{{ movie.id }}/" class="uk-button uk-button-primary uk-button-small">Подробнее</a>
                     </div>
